@@ -7,7 +7,6 @@
 /stats/awstats.timeline.weboftomorrow.com.conf
 /stats/awstats-timeline-crontab
 /chill/timeline-chill.service
-/api/timeline-api.service
 /db
 /dist/
 /frozen/

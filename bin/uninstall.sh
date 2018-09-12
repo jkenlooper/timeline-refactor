@@ -26,19 +26,9 @@ rm -f "${NGINXDIR}sites-available/timeline.${ENVIRONMENT}.conf";
 
 rm -f "${SRVDIR}.htpasswd";
 
-rm -f /etc/cron.d/awstats-timeline-crontab
-# Stop and start in order for the crontab to be loaded (reload not supported).
-systemctl stop cron && systemctl start cron || echo "Can't reload cron service"
-
-rm -f /etc/awstats/awstats.timeline.weboftomorrow.com.conf
-
 systemctl stop timeline-chill
 systemctl disable timeline-chill
 rm -f "${SYSTEMDDIR}timeline-chill.service";
-
-systemctl stop timeline-api
-systemctl disable timeline-api
-rm -f "${SYSTEMDDIR}timeline-api.service";
 
 # TODO: Should it remove the database file in an uninstall?
 echo "Skipping removal of sqlite database file ${DATABASEDIR}db"

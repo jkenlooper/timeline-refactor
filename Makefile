@@ -83,17 +83,8 @@ chill/timeline-chill.service: chill/timeline-chill.service.sh
 
 # Create a tar of the frozen directory to prevent manually updating files within it.
 objects += frozen.tar.gz
-frozen.tar.gz: db.dump.sql site.cfg package.json $(shell find templates/ -type f -print) $(shell find documents/ -type f -print) $(shell find queries/ -type f -print)
+frozen.tar.gz: package.json $(shell find src/ -type f -print)
 	bin/freeze.sh $@
-
-bin/timeline-api: api/requirements.txt requirements.txt
-	pip install -r $<
-	touch $@;
-
-
-objects += api/timeline-api.service
-api/timeline-api.service: api/timeline-api.service.sh
-	./$< $(project_dir) > $@
 
 site.cfg: site.cfg.sh $(PORTREGISTRY)
 	./$< $(ENVIRONMENT) $(DATABASEDIR) $(PORTREGISTRY) > $@
@@ -120,7 +111,7 @@ $(TAG).tar.gz: bin/dist.sh
 ######
 
 .PHONY: all
-all: bin/chill bin/timeline-api $(objects)
+all: bin/chill $(objects)
 
 .PHONY: install
 install:
@@ -132,7 +123,6 @@ install:
 clean:
 	rm $(objects)
 	pip uninstall --yes -r chill/requirements.txt
-	pip uninstall --yes -r api/requirements.txt
 
 # Remove files placed outside of src directory and uninstall app.
 # Will also remove the sqlite database file.
