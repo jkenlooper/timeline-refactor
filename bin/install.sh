@@ -34,7 +34,7 @@ tar --directory="${FROZENTMP}" --gunzip --extract -f frozen.tar.gz
 rsync --archive \
   --delete \
   --itemize-changes \
-  "${FROZENTMP}/frozen/" "${SRVDIR}frozen/";
+  "${FROZENTMP}/dist/timeline/" "${SRVDIR}frozen/";
 echo "rsynced files in frozen.tar.gz to ${SRVDIR}frozen/";
 rm -rf "${FROZENTMP}";
 

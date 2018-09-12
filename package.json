@@ -4,13 +4,13 @@
   "description": "A mutable timeline",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "eval \"$(cat port-registry.cfg)\" && ng serve --port $PORTNGSERVE --host 127.0.0.1 --disable-host-check",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "author": "Jake Hickenlooper"
+  "author": "Jake Hickenlooper",
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",
