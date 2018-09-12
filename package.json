@@ -1,0 +1,10 @@
+{
+  "name": "timeline",
+  "version": "0.1.8",
+  "description": "A mutable timeline",
+  "scripts": {
+    "dbdump": "echo '.dump' | sqlite3 db > db.dump.sql",
+    "dbcat": "cat db.dump.sql | sqlite3 db"
+  },
+  "author": "Jake Hickenlooper"
+}
