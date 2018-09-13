@@ -65,7 +65,7 @@ endif
 # Use $* to get the stem
 FORCE:
 
-objects := site.cfg web/timeline.conf stats/awstats.timeline.weboftomorrow.com.conf stats/awstats-timeline-crontab
+objects := site.cfg web/timeline.conf
 
 
 #####
@@ -91,18 +91,6 @@ site.cfg: site.cfg.sh $(PORTREGISTRY)
 
 web/timeline.conf: web/timeline.conf.sh $(PORTREGISTRY)
 	./$< $(ENVIRONMENT) $(SRVDIR) $(NGINXLOGDIR) $(PORTREGISTRY) > $@
-
-ifeq ($(ENVIRONMENT),production)
-# Only create the dhparam.pem if needed.
-objects += web/dhparam.pem
-web/timeline.conf: web/dhparam.pem
-endif
-
-stats/awstats.timeline.weboftomorrow.com.conf: stats/awstats.timeline.weboftomorrow.com.conf.sh
-	./$< $(NGINXLOGDIR) > $@
-
-stats/awstats-timeline-crontab: stats/awstats-timeline-crontab.sh
-	./$< $(SRVDIR) $(AWSTATSLOGDIR) > $@
 
 .PHONY: $(TAG).tar.gz
 $(TAG).tar.gz: bin/dist.sh

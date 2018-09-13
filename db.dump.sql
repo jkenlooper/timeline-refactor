@@ -22,8 +22,8 @@ CREATE TABLE Node (
     foreign key ( template ) references Template ( id ) on delete set null,
     foreign key ( query ) references Query ( id ) on delete set null
     );
-INSERT INTO "Node" VALUES(2,'GET_api_events',NULL,NULL,1);
-INSERT INTO "Node" VALUES(3,'POST_api_events',NULL,NULL,2);
+INSERT INTO "Node" VALUES(2,'GET_events',NULL,NULL,1);
+INSERT INTO "Node" VALUES(3,'POST_events',NULL,NULL,2);
 CREATE TABLE Node_Node (
     node_id integer,
     target_node_id integer,
@@ -38,8 +38,9 @@ CREATE TABLE Route (
     method varchar(10) default 'GET',
     foreign key ( node_id ) references Node ( id ) on delete set null
 );
-INSERT INTO "Route" VALUES(2,'/api/events/',2,NULL,'GET');
-INSERT INTO "Route" VALUES(3,'/api/events/',3,NULL,'POST');
+INSERT INTO "Route" VALUES(2,'/events/',2,NULL,'GET');
+INSERT INTO "Route" VALUES(3,'/events/',3,NULL,'POST');
 CREATE TABLE Event (timestamp DATE DEFAULT 'now', title text);
 INSERT INTO "Event" VALUES('2018-07-21 12:48:13','I can haz cheezburger?');
+INSERT INTO "Event" VALUES('2018-07-21 12:48:14','I can haz cheezburger, too?');
 COMMIT;

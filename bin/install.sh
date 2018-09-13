@@ -62,7 +62,9 @@ rsync --inplace \
 if (test ! -f "${DATABASEDIR}db"); then
     echo "Creating database from db.dump.sql"
     mkdir -p "${DATABASEDIR}"
-    sqlite3 "${DATABASEDIR}db" < db.dump.sql
+    chown -R dev:dev "${DATABASEDIR}"
+    su dev -c "sqlite3 \"${DATABASEDIR}db\" < db.dump.sql"
+    chmod -R 770 "${DATABASEDIR}"
 fi
 
 mkdir -p "${SYSTEMDDIR}"
