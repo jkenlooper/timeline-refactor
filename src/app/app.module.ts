@@ -5,12 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { TimelineEventComponent } from './timeline-event/timeline-event.component';
+import { NewEventComponent } from './new-event/new-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventListComponent,
-    TimelineEventComponent
+    TimelineEventComponent,
+    NewEventComponent
   ],
   imports: [
     BrowserModule,
