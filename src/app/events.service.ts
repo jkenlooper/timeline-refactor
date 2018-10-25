@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Event } from './event';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 const httpOptions = {
   /*
@@ -28,13 +28,14 @@ export class EventsService {
     return this.http.get<Event[]>(this.eventsUrl);
   }
 
-  createEvent (event: Event): Observable<string> {
+  createEvent (event: Event): Observable<Event[]|string> {
     console.log('createEvent', event);
     return this.http.post(this.eventsUrl, event, { responseType: 'text' })
       .pipe(
-        map((response) => {
+        mergeMap((response) => {
           console.log('response?', response, event);
-          return response;
+          return this.getEvents();
+          // return response;
         }),
         catchError(this.handleError())
       );

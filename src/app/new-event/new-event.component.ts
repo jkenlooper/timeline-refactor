@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { Event } from '../event';
 import { EventsService } from '../events.service';
@@ -9,6 +9,13 @@ import { EventsService } from '../events.service';
   styleUrls: ['./new-event.component.css']
 })
 export class NewEventComponent implements OnInit {
+
+  @Output() reloadRequest = new EventEmitter<Event[]>();
+
+  reload(events) {
+    console.log('emit reloadRequest', events);
+    this.reloadRequest.emit(events);
+  }
 
   constructor(private eventsService: EventsService) { }
 
@@ -23,8 +30,9 @@ export class NewEventComponent implements OnInit {
     const newEvent = new Event(datetime, title);
 
     this.eventsService.createEvent(newEvent)
-      .subscribe((event) => {
-        console.log('created event?', event, newEvent);
+      .subscribe((events) => {
+        console.log('created event?', events, newEvent);
+        this.reload(events);
       });
   }
 
