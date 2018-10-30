@@ -4,7 +4,9 @@
 
   <div>
 
-  <app-event-list>
+  <app-new-event (reloadRequest)="setEvents($event)"></app-new-event>
+
+  <app-event-list [events]="events">
   </app-event-list>
 
   </div>
