@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+COMMAND=$1
+
+# Simple convenience script to control the apps.
+
+for app in timeline-chill;
+do
+  echo "";
+  echo "systemctl $COMMAND $app;";
+  echo "----------------------------------------";
+  systemctl "$COMMAND" "$app" | cat;
+done;
+
