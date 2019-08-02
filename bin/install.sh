@@ -10,14 +10,11 @@ NGINXDIR=$2
 # /var/log/nginx/timeline/
 NGINXLOGDIR=$3
 
-# /var/log/awstats/timeline/
-AWSTATSLOGDIR=$4
-
 # /etc/systemd/system/
-SYSTEMDDIR=$5
+SYSTEMDDIR=$4
 
 # /var/lib/timeline/sqlite3/
-DATABASEDIR=$6
+DATABASEDIR=$5
 
 mkdir -p "${SRVDIR}root/";
 #chown -R dev:dev "${SRVDIR}root/";
@@ -29,14 +26,13 @@ rsync --archive \
   root/ "${SRVDIR}root/";
 echo "rsynced files in root/ to ${SRVDIR}root/";
 
-FROZENTMP=$(mktemp -d);
-tar --directory="${FROZENTMP}" --gunzip --extract -f frozen.tar.gz
+mkdir -p "${SRVDIR}dist/timeline/";
 rsync --archive \
+  --inplace \
   --delete \
   --itemize-changes \
-  "${FROZENTMP}/dist/timeline/" "${SRVDIR}frozen/";
-echo "rsynced files in frozen.tar.gz to ${SRVDIR}frozen/";
-rm -rf "${FROZENTMP}";
+  dist/timeline/ "${SRVDIR}dist/timeline/";
+echo "rsynced files in dist/timeline/ to ${SRVDIR}dist/timeline/";
 
 mkdir -p "${NGINXLOGDIR}";
 
@@ -57,6 +53,14 @@ rsync --inplace \
   --checksum \
   --itemize-changes \
   .htpasswd "${SRVDIR}";
+
+if (test -f web/dhparam.pem); then
+mkdir -p "${NGINXDIR}ssl/"
+rsync --inplace \
+  --checksum \
+  --itemize-changes \
+  web/dhparam.pem "${NGINXDIR}ssl/dhparam.pem";
+fi
 
 # Create the sqlite database file if not there.
 if (test ! -f "${DATABASEDIR}db"); then

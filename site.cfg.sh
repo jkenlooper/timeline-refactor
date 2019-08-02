@@ -9,17 +9,18 @@ PORTREGISTRY=$3
 # shellcheck source=/dev/null
 source "$PORTREGISTRY"
 
+# The .env file has some environment variables that can be added if the app
+# requires them. Add this .env file and update the setting of the environment
+# variables at the bottom of this file.
 if test -e .env; then
   source .env;
 fi
 
-# The .env file has some environment variables that can be added if the app
-# requires them. Uncomment this line as well as the EXAMPLE_PUBLIC_KEY below.
-#source ".env"
-
 if test "$ENVIRONMENT" == 'development'; then
+  HOSTNAME="'local-timeline'"
   DEBUG=True
 else
+  HOSTNAME="'timeline.weboftomorrow.com'"
   DEBUG=False
 fi
 
@@ -31,6 +32,7 @@ cat <<HERE
 
 # Set the HOST to 0.0.0.0 for being an externally visible server.
 HOST = '127.0.0.1'
+HOSTNAME = $HOSTNAME
 PORT = $PORTCHILL
 PORTAPI = $PORTAPI
 
@@ -130,9 +132,11 @@ HERE
 
 if test -e .env; then
 cat <<HERE
-# Example of environment vars set in the .env file
-# Since this file is generated in the environment, the variables can be set here
-# and not use python to inject them via os.getenv
+# The environment vars are set in the .env file.  Since site.cfg is generated in
+# the environment, the variables can be set here and not use python to inject
+# them via os.getenv
+
+# TODO: Replace examples with actual environment vars.
 EXAMPLE_PUBLIC_KEY = "${EXAMPLE_PUBLIC_KEY}"
 EXAMPLE_SECRET_KEY = "${EXAMPLE_SECRET_KEY}"
 HERE

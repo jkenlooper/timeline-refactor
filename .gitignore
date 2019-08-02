@@ -4,14 +4,10 @@
 /.env
 /.htpasswd
 /site.cfg
-/frozen.tar.gz
 /web/timeline.conf
-/stats/awstats.timeline.weboftomorrow.com.conf
-/stats/awstats-timeline-crontab
 /chill/timeline-chill.service
 /db
 /dist/
-/frozen/
 /logs/
 /node_modules/
 /npm-debug.log

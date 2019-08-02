@@ -1,8 +1,12 @@
 /activate*
+/black
+/blackd
 /chill
-/flask
 /easy_install*
+/flask
+/futurize
 /markdown_py
+/pasteurize
 /pip*
 /python*
 /rst2*

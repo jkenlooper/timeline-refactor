@@ -19,10 +19,8 @@ DATABASEDIR=$4
 
 rm -rf ${SRVDIR}root/!(.well-known|.|..)
 
-rm -rf "${SRVDIR}frozen/"
-
-rm -f "${NGINXDIR}sites-enabled/timeline.${ENVIRONMENT}.conf";
-rm -f "${NGINXDIR}sites-available/timeline.${ENVIRONMENT}.conf";
+rm -f "${NGINXDIR}sites-enabled/timeline.conf";
+rm -f "${NGINXDIR}sites-available/timeline.conf";
 
 rm -f "${SRVDIR}.htpasswd";
 
