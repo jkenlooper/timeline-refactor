@@ -22,11 +22,13 @@ export class NewEventComponent implements OnInit {
   ngOnInit() {
   }
 
-  add(title: string, datetime: string): void {
+  add(title: string, date: string, time: string): void {
     title = title.trim();
-    datetime = datetime.trim();
-    if (!title || !datetime) { return; }
+    date = date.trim();
+    time = time.trim();
+    if (!title || !date || !time) { return; }
 
+    const datetime = `${date} ${time}`;
     const newEvent = new Event(datetime, title);
 
     this.eventsService.createEvent(newEvent)

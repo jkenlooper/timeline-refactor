@@ -1,20 +1,31 @@
 <div>
 <label>
-  Title:
+  Title
   <input type="text" #eventTitle>
 </label>
 </div>
 
 <div>
+<mat-form-field>
 <label>
-  Datetime:
-  <input type="datetime-local" step="1" #eventDatetime>
+  Date
+  <input matInput type="date" step="1" #eventDate>
 </label>
+</mat-form-field>
+</div>
+
+<div>
+<mat-form-field>
+<label>
+  Time
+  <input matInput type="time" #eventTime>
+</label>
+</mat-form-field>
 </div>
 
 <div>
   <button type="submit"
-    (click)="add(eventTitle.value, eventDatetime.value)">
+    (click)="add(eventTitle.value, eventDate.value, eventTime.value)">
     Add Event
   </button>
 </div>

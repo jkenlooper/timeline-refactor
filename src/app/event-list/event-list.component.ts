@@ -18,7 +18,9 @@ export class EventListComponent {
 
   @Input()
   set events (list) {
+    if (list && Array.isArray(list)) {
     this.filteredEvents = list.reverse();
+    }
   }
 
   constructor() { }
